@@ -7,29 +7,29 @@ This library is a facilitator for configuring the swagger in APIS.
 To use the library, just perform the following configuration at application startup:
 
 ```csharp
-    public void ConfigureServices(IServiceCollection services, IHostEnvironment env)
-    {
-        ..
-        services.AddSwaggerConfig(builder.Configuration, env);
-    }
+public void ConfigureServices(IServiceCollection services, IHostEnvironment env)
+{
+    ..
+    services.AddSwaggerConfig(builder.Configuration, env);
+}
 
-    public void Configure(IApplicationBuilder app)
-    {
-        ..
-        app.UseSwaggerDefaultConfig();
-    }
+public void Configure(IApplicationBuilder app)
+{
+    ..
+    app.UseSwaggerDefaultConfig();
+}
 ```
 
 In addition, it is necessary to add the following structure in the **appsettings.json** of the application:
 
 ```json
-    "Swagger": {
-        "Title": "API title",
-        "Description": "What does it do",
-        "ReadmeUrl": ": "Project readme url",
-        "ContactName": "Name of the person responsible for the API",
-        "ContactEmail": "E-Mail of the person responsible for the API"
-    }
+"Swagger": {
+    "Title": "API title",
+    "Description": "What does it do",
+    "ReadmeUrl": ": "Project readme url",
+    "ContactName": "Name of the person responsible for the API",
+    "ContactEmail": "E-Mail of the person responsible for the API"
+}
 ```
 
 # Features
@@ -44,16 +44,16 @@ By default the library intercepts the parameters needed for each endpoint and tr
 To customize the description of the enums, just decorate each value with the **Description** decorator:
 
 ```csharp
-    public enum Gender
-    {
-        None = 0
+public enum Gender
+{
+    None = 0
 
-        [Description("Man")]
-        Male = 2,
+    [Description("Man")]
+    Male = 2,
 
-        [Description("Woman")]
-        Female = 2
-    }
+    [Description("Woman")]
+    Female = 2
+}
 ```
 
 In the interface, the following text will be generated over the gender parameter:
