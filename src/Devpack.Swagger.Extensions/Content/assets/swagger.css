@@ -1,0 +1,21 @@
+﻿.swagger-ui hr {
+    color: rgba(59,65,81,.2);
+    border-bottom: none;
+}
+
+tr[data-param-name="HasQuery"], tr[data-param-name="IgnoreItems"] {
+    display: none;
+}
+
+.parameters-col_description > .renderedMarkdown > p {
+    font-size: 12px !important;
+    margin-bottom: 2px !important;
+}
+
+.swagger-ui select {
+    margin: 5px 0;
+}
+
+#enviroment-disclaimer > h4 {
+    color: red !important;
+}

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RepositoryUrl>https://github.com/DiegoRs100/devpack-swagger-extensions.git</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\assets\swagger.css" />
+    <None Remove="Content\assets\swagger.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\assets\swagger.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\assets\swagger.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Devpack.Extensions" Version="6.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
+  </ItemGroup>
+
+</Project>
