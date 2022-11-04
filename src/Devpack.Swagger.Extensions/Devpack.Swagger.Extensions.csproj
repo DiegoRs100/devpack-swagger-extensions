@@ -5,20 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<RepositoryUrl>https://github.com/DiegoRs100/devpack-swagger-extensions.git</RepositoryUrl>
-	<Version>6.0.1.0</Version>
+	<Version>6.0.1.1</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Content\assets\swagger.css" />
-    <None Remove="Content\assets\swagger.html" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Content\assets\swagger.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
     <Content Include="Content\assets\swagger.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
   </ItemGroup>
 
