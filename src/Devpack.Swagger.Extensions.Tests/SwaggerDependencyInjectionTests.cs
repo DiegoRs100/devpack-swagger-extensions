@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Devpack.Swagger.Extensions.Tests.Common;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Moq;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
 using System.IO;
 using System.Text;
 using Xunit;
@@ -75,6 +77,30 @@ namespace Devpack.Swagger.Extensions.Tests
                 .Contain("<h4>Documentation</h4>")
                 .And.Contain(description)
                 .And.Contain(readmeUrl);
+        }
+
+        [Fact(DisplayName = "Deve configurar a injeção dos serviços do swagger quando o método (AddSwaggerConfig) for chamado " +
+            "passando options customizadas.")]
+        [Trait("Category", "Extensions")]
+        public void AddSwaggerConfig_UsingCustomOptions()
+        {
+            _hostEnvironmentMock.SetupGet(m => m.EnvironmentName).Returns("Sandbox");
+
+            var services = new ServiceCollection();
+
+            services.AddSwaggerConfig(_configurationMock.Object, _hostEnvironmentMock.Object, options =>
+                options.Equals(new ExceptionObject()));
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            var injectedOptions = serviceProvider.GetService<SwaggerSettings>();
+            var swaggerGenOptions = serviceProvider.GetService<IConfigureOptions<SwaggerGenOptions>>();
+
+            var schemaGenerator = serviceProvider.Invoking(sp => sp.GetService<ISchemaGenerator>())
+                .Should().Throw<InvalidOperationException>();
+
+            injectedOptions.Should().NotBeNull();
+            swaggerGenOptions.Should().NotBeNull();
         }
     }
 }

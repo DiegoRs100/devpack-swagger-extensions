@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Diagnostics.CodeAnalysis;
 
@@ -13,15 +14,22 @@ namespace Devpack.Swagger.Extensions
     {
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
         {
-            if (env.IsProduction())
-                services.AddMvcCore(options => options.Conventions.Add(new ControllersHideConvension()));
-
-            var swaggerSettings = configuration.GetSection("Swagger")?.Get<SwaggerSettings>() ?? new SwaggerSettings();
-
-            ConfigureSwaggerDescription(swaggerSettings, env);
-
-            services.AddSingleton(swaggerSettings);
+            var swaggerSettings = services.AddSwaggerDefaultConfig(configuration, env);
             services.AddSwaggerGen(options => new ConfigureSwaggerOptions(swaggerSettings, env).Configure(options));
+
+            return services;
+        }
+
+        public static IServiceCollection AddSwaggerConfig(this IServiceCollection services, IConfiguration configuration,
+            IHostEnvironment env, Action<SwaggerGenOptions> swaggerOptions)
+        {
+            var swaggerSettings = services.AddSwaggerDefaultConfig(configuration, env);
+
+            services.AddSwaggerGen(options =>
+            {
+                new ConfigureSwaggerOptions(swaggerSettings, env).Configure(options);
+                swaggerOptions.Invoke(options);
+            });
 
             return services;
         }
@@ -78,6 +86,20 @@ namespace Devpack.Swagger.Extensions
                 .Replace("{{enviroment-disclaimer}}", disclaimerText);
 
             swaggerSettings.Description = swaggerDescriptionLayout;
+        }
+
+        private static SwaggerSettings AddSwaggerDefaultConfig(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
+        {
+            if (env.IsProduction())
+                services.AddMvcCore(options => options.Conventions.Add(new ControllersHideConvension()));
+
+            var swaggerSettings = configuration.GetSection("Swagger")?.Get<SwaggerSettings>() ?? new SwaggerSettings();
+
+            ConfigureSwaggerDescription(swaggerSettings, env);
+
+            services.AddSingleton(swaggerSettings);
+
+            return swaggerSettings;
         }
     }
 }

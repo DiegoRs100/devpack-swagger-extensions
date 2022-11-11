@@ -53,5 +53,28 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
 
             options.Description.Should().Be("0 - Value1 | 1 - Value2 Formated");
         }
+
+        [Fact(DisplayName = "Deve ajustar a descrição do objeto (OpenApiParameter) com os dados de um enum " +
+            "quando um enum do tipo nullable for passado.")]
+        [Trait("Category", "Filters")]
+        public void Apply_Success_WhenNullable()
+        {
+            var options = new OpenApiParameter();
+
+            var modelMetadataMock = new FakeModelMetadata(ModelMetadataIdentity.ForType(typeof(EnumTest?)));
+            modelMetadataMock.MockIsEnum(true);
+
+            var apiParameterDescription = new ApiParameterDescription()
+            {
+                ModelMetadata = modelMetadataMock
+            };
+
+            var context = new ParameterFilterContext(apiParameterDescription, null, null, null, null);
+
+            var filter = new SwaggerEnumsFilter();
+            filter.Apply(options, context);
+
+            options.Description.Should().Be("0 - Value1 | 1 - Value2 Formated");
+        }
     }
 }

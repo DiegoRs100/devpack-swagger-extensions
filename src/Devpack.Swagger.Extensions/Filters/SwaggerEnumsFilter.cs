@@ -15,6 +15,9 @@ namespace Devpack.Swagger.Extensions.Filters
 
             var enumTags = new List<string>();
 
+            if (type.IsReferenceOrNullableType())
+                type = type.GetGenericArguments()[0];
+
             foreach (var enumItem in Enum.GetValues(type))
                 enumTags.Add($"{(int)enumItem!} - { (enumItem as Enum)?.GetDescription() }");
 
