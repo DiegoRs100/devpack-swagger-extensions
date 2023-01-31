@@ -60,6 +60,7 @@ namespace Devpack.Swagger.Extensions
             options.OperationFilter<SwaggerResponsesFilter>();
             options.ParameterFilter<SwaggerEnumsFilter>();
             options.OperationFilter<SwaggerPrivateSettersFilter>();
+            options.OperationFilter<SwaggerBodyDescriptionFilter>();
         }
 
         private OpenApiInfo CreateInfoForApiVersion()

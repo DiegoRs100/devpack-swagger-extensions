@@ -3,17 +3,23 @@ using Devpack.Swagger.Extensions.Tests.Common;
 using Devpack.Swagger.Extensions.Tests.Common.Factories;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Devpack.Swagger.Extensions.Tests.Filters
 {
     public class SwaggerPrivateSettersFilterTests
     {
+        [Fact(DisplayName = "Não deve lançar exception quando o (ParameterDescriptions) for nulo.")]
+        public void Apply_WhenParameterDescriptionsNull()
+        {
+            var context = new OperationFilterContext(null, null, null, null);
+            var filter = new SwaggerPrivateSettersFilter();
+
+            filter.Invoking(f => f.Apply(null!, context)).Should().NotThrow();
+        }
+
         [Fact(DisplayName = "Não deve lançar exception quando a operação não possuir parâmetros.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenNotParameters()
         {
             var context = new OperationFilterContext(new ApiDescription(), null, null, null);
@@ -23,7 +29,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Deve remover os parâmetros do tipo (ReadOnly) quando o método for chamado.")]
-        [Trait("Category", "Filters")]
         public void Apply_ReadOnlyParameters()
         {
             // Arrange
@@ -46,7 +51,8 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
             apiDescription.ParameterDescriptions.Add(validParameter2);
             apiDescription.ParameterDescriptions.Add(validParameter3);
 
-            var operation = CreateDefaultOpenApiOperation(apiDescription.ParameterDescriptions);
+            var operation = OpenApiOperationFactory
+                .CreateDefaultOpenApiOperation(apiDescription.ParameterDescriptions);
 
             var context = new OperationFilterContext(apiDescription, null, null, metodInfo);
             var filter = new SwaggerPrivateSettersFilter();
@@ -57,19 +63,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
             // Asserts
             operation.Parameters.Should().HaveCount(3);
             operation.Parameters.Should().NotContain(p => p.Name == invalidParameter.Name);
-        }
-
-        private static OpenApiOperation CreateDefaultOpenApiOperation(IEnumerable<ApiParameterDescription> parametersDescription)
-        {
-            var operation = new OpenApiOperation()
-            {
-                Parameters = new List<OpenApiParameter>()
-            };
-
-            foreach (var description in parametersDescription)
-                operation.Parameters.Add(new OpenApiParameter() { Name = description.Name });
-
-            return operation;
         }
     }
 }

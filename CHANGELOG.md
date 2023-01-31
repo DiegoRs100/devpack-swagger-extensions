@@ -10,3 +10,7 @@
 
 - Fix enum list filter bug fix;
 - Extra method implementation that performs swagger configuration by passing custom settings.
+
+## 6.0.3.0 - 2023-01-31
+
+- Implementation of the filter that allows documenting properties of the request body.

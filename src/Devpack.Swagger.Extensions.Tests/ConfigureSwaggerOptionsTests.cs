@@ -36,7 +36,7 @@ namespace Devpack.Swagger.Extensions.Tests
 
             // Asserts
             genOptions.ParameterFilterDescriptors.Should().HaveCount(2);
-            genOptions.OperationFilterDescriptors.Should().HaveCount(3);
+            genOptions.OperationFilterDescriptors.Should().HaveCount(4);
             genOptions.ParameterFilterDescriptors.Should().Contain(p => p.Type == typeof(AnnotationsParameterFilter));
             genOptions.ParameterFilterDescriptors.Should().Contain(p => p.Type == typeof(SwaggerEnumsFilter));
             genOptions.OperationFilterDescriptors.Should().Contain(p => p.Type == typeof(AnnotationsOperationFilter));

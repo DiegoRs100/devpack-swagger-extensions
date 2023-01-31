@@ -96,7 +96,7 @@ namespace Devpack.Swagger.Extensions.Tests
             var injectedOptions = serviceProvider.GetService<SwaggerSettings>();
             var swaggerGenOptions = serviceProvider.GetService<IConfigureOptions<SwaggerGenOptions>>();
 
-            var schemaGenerator = serviceProvider.Invoking(sp => sp.GetService<ISchemaGenerator>())
+            serviceProvider.Invoking(sp => sp.GetService<ISchemaGenerator>())
                 .Should().Throw<InvalidOperationException>();
 
             injectedOptions.Should().NotBeNull();

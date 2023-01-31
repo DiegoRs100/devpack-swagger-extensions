@@ -19,7 +19,6 @@ namespace Devpack.Swagger.Extensions.Tests
         }
 
         [Fact(DisplayName = "Deve setar o status 401 quando um endpoint do swagger for chamado e o usuário não estiver autenticado.")]
-        [Trait("Category", "Middlewares")]
         public async Task Invoke_WhenUserUnauthenticated()
         {
             _httpContextMock.Setup(m => m.Request.Path).Returns("/swagger/test");
@@ -33,7 +32,6 @@ namespace Devpack.Swagger.Extensions.Tests
         }
 
         [Fact(DisplayName = "Deve manter os status inalterado quando um endpoint do swagger for chamado e o usuário estiver autenticado.")]
-        [Trait("Category", "Middlewares")]
         public async Task Invoke_WhenUserIAthenticated()
         {
             _httpContextMock.Setup(m => m.Request.Path).Returns("/swagger/test");
@@ -47,7 +45,6 @@ namespace Devpack.Swagger.Extensions.Tests
         }
 
         [Fact(DisplayName = "Deve manter os status inalterado quando um endpoint que não seja do swagger for chamado.")]
-        [Trait("Category", "Middlewares")]
         public async Task Invoke_WhenEndpointIsNotSwagger()
         {
             _httpContextMock.Setup(m => m.Request.Path).Returns("/api/test");
