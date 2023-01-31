@@ -13,7 +13,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
     public class SwaggerResponsesFilterTests
     {
         [Fact(DisplayName = "Deve remover os schemas defalt do swagger quando o método for chamado")]
-        [Trait("Category", "Filters")]
         public void Apply_RemoveDefaultSchemas()
         {
             var schemaKey = Guid.NewGuid().ToString();
@@ -53,7 +52,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         [InlineData("200")]
         [InlineData("404")]
         [InlineData("409")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenNotHasProducesResponseTypeAttribute(string httpCode)
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method1));
@@ -68,7 +66,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Deve criar um response info informado o retorno 400 quando o método analisado tiver parâmetros do tipo (class).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasClassParameters()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method3));
@@ -83,7 +80,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Deve criar um response info informado o retorno 400 quando o método analisado tiver parâmetros no corpo com o atributo (FromBody).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasParametersFromBodyAttribute()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method4));
@@ -98,7 +94,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um response info informado o retorno 400 quando o método analisado não tiver parâmetros.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasNotParameters()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method1));
@@ -113,7 +108,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um response info informado o retorno 400 quando o método analisado tiver apenas parâmetros do tipo (class) com o atributo (FromQuery).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasParametersFromQueryAttribute()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method5));
@@ -128,7 +122,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um response info informado o retorno 400 quando o método analisado tiver apenas parâmetros primitivos.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasOnlyPrimitivesParameters()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method6));
@@ -143,7 +136,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um novo response info informado o retorno 400 quando o response info 400 já existir.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenResponse400AlreadyExists()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method4));
@@ -158,7 +150,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Deve criar um response info informado o retorno 401 quando a classe analisada tiver o atributo (Authorize).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenClassHasAuthorizeAttribute()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method1));
@@ -173,7 +164,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Deve criar um response info informado o retorno 401 quando o método analisado tiver o atributo (Authorize).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasAuthorizeAttribute()
         {
             var metodInfo = typeof(Object2Test).GetMethod(nameof(Object2Test.Method1));
@@ -188,7 +178,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um response info informado o retorno 401 quando a classe e o método analisado não tiverem o atributo (Authorize).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenClassAndMethodHasNotAuthorizeAttribute()
         {
             var metodInfo = typeof(Object2Test).GetMethod(nameof(Object2Test.Method2));
@@ -203,7 +192,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um response info informado o retorno 401 quando o método analisado tiver o atributo (AllowAnonymous).")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenMethodHasAllowAnonymousAttribute()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method3));
@@ -218,7 +206,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um novo response info informado o retorno 401 quando o response info 401 já existir.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenResponse401AlreadyExists()
         {
             var methodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method4));
@@ -233,7 +220,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
         }
 
         [Fact(DisplayName = "Não deve criar um novo response info informado o retorno 500 quando o response info 500 já existir.")]
-        [Trait("Category", "Filters")]
         public void Apply_WhenResponse500AlreadyExists()
         {
             var metodInfo = typeof(ObjectTest).GetMethod(nameof(ObjectTest.Method1));

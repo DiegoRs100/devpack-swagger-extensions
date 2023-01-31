@@ -80,7 +80,7 @@ public class Person
 
 In the interface, the following text will be generated:
 
-• Document : "Represents the person's CPF."
+• Document : "Represents the person's CPF."<br>
 • BirthDate : "Date represented in UTC format."
 
 #### Readonly properties

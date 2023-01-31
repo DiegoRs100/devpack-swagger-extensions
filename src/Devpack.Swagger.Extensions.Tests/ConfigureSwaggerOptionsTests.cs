@@ -22,7 +22,6 @@ namespace Devpack.Swagger.Extensions.Tests
         [Theory(DisplayName = "Deve configurar corretamente os filtros de parâmetros e operação quando o ambiente for diferente de produção.")]
         [InlineData("Sandbox")]
         [InlineData("Development")]
-        [Trait("Category", "Configurations")]
         public void Configure_Filters(string enviromentKey)
         {
             // Arrange
@@ -47,7 +46,6 @@ namespace Devpack.Swagger.Extensions.Tests
         [InlineData("Sandbox")]
         [InlineData("Development")]
         [InlineData("Production")]
-        [Trait("Category", "Configurations")]
         public void Configure_OpenApiInfo(string enviromentKey)
         {
             // Arrange
@@ -71,7 +69,6 @@ namespace Devpack.Swagger.Extensions.Tests
         }
 
         [Fact(DisplayName = "Não deve habilitar os filtros quando o abiente for de produção.")]
-        [Trait("Category", "Configurations")]
         public void Configure_WhenProduction()
         {
             // Arrange

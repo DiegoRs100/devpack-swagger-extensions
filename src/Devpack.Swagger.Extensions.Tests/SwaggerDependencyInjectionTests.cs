@@ -81,7 +81,6 @@ namespace Devpack.Swagger.Extensions.Tests
 
         [Fact(DisplayName = "Deve configurar a injeção dos serviços do swagger quando o método (AddSwaggerConfig) for chamado " +
             "passando options customizadas.")]
-        [Trait("Category", "Extensions")]
         public void AddSwaggerConfig_UsingCustomOptions()
         {
             _hostEnvironmentMock.SetupGet(m => m.EnvironmentName).Returns("Sandbox");

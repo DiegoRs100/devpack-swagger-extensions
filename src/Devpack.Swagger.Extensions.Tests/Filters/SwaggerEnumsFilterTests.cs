@@ -12,7 +12,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
     public class SwaggerEnumsFilterTests
     {
         [Fact(DisplayName = "Deve finalizar a execução quando a propertyInfo passada não for de um enum.")]
-        [Trait("Category", "Filters")]
         public void Apply_Fail_WhenPropertyInfoNotIsEnum()
         {
             var options = new OpenApiParameter();
@@ -33,7 +32,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
 
         [Fact(DisplayName = "Deve ajustar a descrição do objeto (OpenApiParameter) com os dados de um enum " +
             "quando um enum válido for passado.")]
-        [Trait("Category", "Filters")]
         public void Apply_Success()
         {
             var options = new OpenApiParameter();
@@ -56,7 +54,6 @@ namespace Devpack.Swagger.Extensions.Tests.Filters
 
         [Fact(DisplayName = "Deve ajustar a descrição do objeto (OpenApiParameter) com os dados de um enum " +
             "quando um enum do tipo nullable for passado.")]
-        [Trait("Category", "Filters")]
         public void Apply_Success_WhenNullable()
         {
             var options = new OpenApiParameter();
