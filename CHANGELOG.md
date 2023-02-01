@@ -14,3 +14,7 @@
 ## 6.0.3.0 - 2023-01-31
 
 - Implementation of the filter that allows documenting properties of the request body.
+
+## 6.0.4.0 - 2023-02-01
+
+- The automatic writing functionality of enums has been refactored to work with the request body.

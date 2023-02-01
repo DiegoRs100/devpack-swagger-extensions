@@ -60,29 +60,6 @@ In the interface, the following text will be generated over the gender parameter
 
 0 - None | 1 - Man | 2 - Woman
 
-#### Properties body description
-
-The library allows you to use an attribute to describe it. This information will later be printed from the endpoint description.
-
-```csharp
-public class Person
-{
-    public Guid Id {get; set;}
-
-    [SwaggerBodyParameter("Represents the person's CPF.")]
-    public string Document {get; set;}
-
-    [SwaggerBodyParameter("Date represented in UTC format.")]
-    public Datetime BirthDate {get; set;}
-
-}
-```
-
-In the interface, the following text will be generated:
-
-• Document : "Represents the person's CPF."<br>
-• BirthDate : "Date represented in UTC format."
-
 #### Readonly properties
 
 By default, the library maps all readonly parameters to endpoints and removes them from the swagger contract, thus improving its readability.
