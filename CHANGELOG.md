@@ -18,3 +18,7 @@
 ## 6.0.4.0 - 2023-02-01
 
 - The automatic writing functionality of enums has been refactored to work with the request body.
+
+## 6.0.5.0 - 2023-02-01
+
+- Update Swagger CSS to format request body schemas.

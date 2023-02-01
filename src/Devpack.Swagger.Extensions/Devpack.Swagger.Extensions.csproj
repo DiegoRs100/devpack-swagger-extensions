@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<RepositoryUrl>https://github.com/DiegoRs100/devpack-swagger-extensions.git</RepositoryUrl>
-	<Version>6.0.4.0</Version>
+	<Version>6.0.5.0</Version>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
