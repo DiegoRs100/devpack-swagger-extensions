@@ -34,10 +34,11 @@ namespace Devpack.Swagger.Extensions.Tests
             configureSwaggerOptions.Configure(genOptions);
 
             // Asserts
-            genOptions.ParameterFilterDescriptors.Should().HaveCount(2);
-            genOptions.OperationFilterDescriptors.Should().HaveCount(4);
+            genOptions.ParameterFilterDescriptors.Should().HaveCount(1);
+            genOptions.OperationFilterDescriptors.Should().HaveCount(3);
+            genOptions.SchemaFilterDescriptors.Should().HaveCount(2);
             genOptions.ParameterFilterDescriptors.Should().Contain(p => p.Type == typeof(AnnotationsParameterFilter));
-            genOptions.ParameterFilterDescriptors.Should().Contain(p => p.Type == typeof(SwaggerEnumsFilter));
+            genOptions.SchemaFilterDescriptors.Should().Contain(p => p.Type == typeof(SwaggerEnumsFilter));
             genOptions.OperationFilterDescriptors.Should().Contain(p => p.Type == typeof(AnnotationsOperationFilter));
             genOptions.OperationFilterDescriptors.Should().Contain(p => p.Type == typeof(SwaggerResponsesFilter));
         }

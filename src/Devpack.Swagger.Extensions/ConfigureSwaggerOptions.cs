@@ -58,9 +58,8 @@ namespace Devpack.Swagger.Extensions
             options.EnableAnnotations();
 
             options.OperationFilter<SwaggerResponsesFilter>();
-            options.ParameterFilter<SwaggerEnumsFilter>();
+            options.SchemaFilter<SwaggerEnumsFilter>();
             options.OperationFilter<SwaggerPrivateSettersFilter>();
-            options.OperationFilter<SwaggerBodyDescriptionFilter>();
         }
 
         private OpenApiInfo CreateInfoForApiVersion()

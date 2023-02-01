@@ -26,13 +26,5 @@ namespace Devpack.Swagger.Extensions.Tests.Common.Factories
 
             return metadata;
         }
-
-        public static ModelMetadata CreateBodyMetadata()
-        {
-            var metadata = new FakeModelMetadata(ModelMetadataIdentity.ForType(typeof(Object2Test)));
-            metadata.MockBindingSource(new BindingSource(string.Empty, string.Empty, false, false));
-
-            return metadata;
-        }
     }
 }

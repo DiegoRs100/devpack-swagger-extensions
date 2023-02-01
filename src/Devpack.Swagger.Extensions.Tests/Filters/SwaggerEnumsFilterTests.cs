@@ -1,77 +1,61 @@
 ﻿using Devpack.Swagger.Extensions.Filters;
 using Devpack.Swagger.Extensions.Tests.Common;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Moq;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
 using Xunit;
 
 namespace Devpack.Swagger.Extensions.Tests.Filters
 {
     public class SwaggerEnumsFilterTests
     {
-        [Fact(DisplayName = "Deve finalizar a execução quando a propertyInfo passada não for de um enum.")]
-        public void Apply_Fail_WhenPropertyInfoNotIsEnum()
+        private readonly Mock<ISchemaGenerator> _schemaGeneratorMock;
+
+        public SwaggerEnumsFilterTests()
         {
-            var options = new OpenApiParameter();
-            var modelMetadataMock = new FakeModelMetadata(ModelMetadataIdentity.ForType(typeof(EnumTest)));
-
-            var apiParameterDescription = new ApiParameterDescription()
-            {
-                ModelMetadata = modelMetadataMock
-            };
-
-            var context = new ParameterFilterContext(apiParameterDescription, null, null, null, null);
-
-            var filter = new SwaggerEnumsFilter();
-            filter.Apply(options, context);
-
-            options.Description.Should().BeNull();
+            _schemaGeneratorMock = new Mock<ISchemaGenerator>();
         }
 
-        [Fact(DisplayName = "Deve ajustar a descrição do objeto (OpenApiParameter) com os dados de um enum " +
+        [Fact(DisplayName = "Deve finalizar a execução quando o schema0 passado não for de um enum.")]
+        public void Apply_Fail_WhenPropertyInfoNotIsEnum()
+        {
+            // Arrange
+            var propertyDescription = Guid.NewGuid().ToString();
+
+            var schema = new OpenApiSchema() { Description = propertyDescription };
+            var context = new SchemaFilterContext(typeof(EnumTest), _schemaGeneratorMock.Object, new SchemaRepository());
+
+            var filter = new SwaggerEnumsFilter();
+
+            // Act
+            filter.Apply(schema, context);
+
+            // Asserts
+            schema.Description.Should().Be(propertyDescription);
+        }
+
+        [Fact(DisplayName = "Deve ajustar a descrição do schema com os dados de um enum " +
             "quando um enum válido for passado.")]
         public void Apply_Success()
         {
-            var options = new OpenApiParameter();
+            // Arrange
+            var propertyDescription = Guid.NewGuid().ToString();
 
-            var modelMetadataMock = new FakeModelMetadata(ModelMetadataIdentity.ForType(typeof(EnumTest)));
-            modelMetadataMock.MockIsEnum(true);
+            var schema = new OpenApiSchema() { Description = propertyDescription };
+            var context = new SchemaFilterContext(typeof(EnumTest), _schemaGeneratorMock.Object, new SchemaRepository());
 
-            var apiParameterDescription = new ApiParameterDescription()
-            {
-                ModelMetadata = modelMetadataMock
-            };
-
-            var context = new ParameterFilterContext(apiParameterDescription, null, null, null, null);
+            schema.Enum.Add(new OpenApiString("0"));
 
             var filter = new SwaggerEnumsFilter();
-            filter.Apply(options, context);
 
-            options.Description.Should().Be("0 - Value1 | 1 - Value2 Formated");
-        }
+            // Act
+            filter.Apply(schema, context);
 
-        [Fact(DisplayName = "Deve ajustar a descrição do objeto (OpenApiParameter) com os dados de um enum " +
-            "quando um enum do tipo nullable for passado.")]
-        public void Apply_Success_WhenNullable()
-        {
-            var options = new OpenApiParameter();
-
-            var modelMetadataMock = new FakeModelMetadata(ModelMetadataIdentity.ForType(typeof(EnumTest?)));
-            modelMetadataMock.MockIsEnum(true);
-
-            var apiParameterDescription = new ApiParameterDescription()
-            {
-                ModelMetadata = modelMetadataMock
-            };
-
-            var context = new ParameterFilterContext(apiParameterDescription, null, null, null, null);
-
-            var filter = new SwaggerEnumsFilter();
-            filter.Apply(options, context);
-
-            options.Description.Should().Be("0 - Value1 | 1 - Value2 Formated");
+            // Asserts
+            schema.Description.Should().Be($"{propertyDescription}0 - Value1 | 1 - Value2 Formated");
         }
     }
 }

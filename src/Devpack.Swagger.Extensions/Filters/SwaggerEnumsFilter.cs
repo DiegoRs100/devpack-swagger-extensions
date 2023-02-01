@@ -4,24 +4,19 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Devpack.Swagger.Extensions.Filters
 {
-    public class SwaggerEnumsFilter : IParameterFilter
+    public class SwaggerEnumsFilter : ISchemaFilter
     {
-        public void Apply(OpenApiParameter parameter, ParameterFilterContext context)
+        public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
-            if (!context.ApiParameterDescription.ModelMetadata.IsEnum)
+            if (schema.Enum.IsNullOrEmpty())
                 return;
-
-            var type = context.ApiParameterDescription.ModelMetadata.ModelType;
 
             var enumTags = new List<string>();
 
-            if (type.IsReferenceOrNullableType())
-                type = type.GetGenericArguments()[0];
+            foreach (var enumItem in Enum.GetValues(context.Type))
+                enumTags.Add($"{(int)enumItem!} - {(enumItem as Enum)?.GetDescription()}");
 
-            foreach (var enumItem in Enum.GetValues(type))
-                enumTags.Add($"{(int)enumItem!} - { (enumItem as Enum)?.GetDescription() }");
-
-            parameter.Description = string.Join(" | ", enumTags);
+            schema.Description += string.Join(" | ", enumTags);
         }
     }
 }
