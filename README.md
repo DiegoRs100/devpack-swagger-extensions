@@ -26,7 +26,7 @@ In addition, it is necessary to add the following structure in the **appsettings
 "Swagger": {
     "Title": "API title",
     "Description": "What does it do",
-    "ReadmeUrl": ": "Project readme url",
+    "ReadmeUrl": "Project readme url",
     "ContactName": "Name of the person responsible for the API",
     "ContactEmail": "E-Mail of the person responsible for the API"
 }
